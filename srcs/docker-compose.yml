@@ -1,0 +1,19 @@
+
+version: '3.1'
+services:
+  maria-db:
+    build:
+      context: ./srcs/requirements/mariadb
+      dockerfile: Dockerfile
+    restart: always
+    container_name: maria-db
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./.env 
+    networks:
+      - docker-network
+
+
+networks:
+  docker-network:
