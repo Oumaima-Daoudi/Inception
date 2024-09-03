@@ -1,2 +1,6 @@
--- for MariaDB
-ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('my-secret-pass');
+CREATE DATABASE IF NOT EXISTS wordpress;
+
+CREATE USER IF NOT EXISTS 'oumaima'@'localhost' IDENTIFIED BY 'ensa-1234';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'oumaima'@'localhost';
+FLUSH PRIVILEGES;
+

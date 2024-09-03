@@ -7,7 +7,8 @@ RUN apt-get update && \
     mkdir -p /run/mysqld && \
     # Set proper permissions
     chown -R mysql:mysql /run/mysqld && \
-    chmod 777 /run/mysqld
+    chmod 777 /run/mysqld && \
+    echo 'bind-address = 0.0.0.0' >> /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Copy the SQL script to set the root password
 COPY ./conf/init.sql /docker-entrypoint-initdb.d/
