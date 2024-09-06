@@ -2,18 +2,9 @@ FROM debian:bullseye
 
 # Install MariaDB server and MariaDB client
 RUN apt-get update && \
-    apt-get install -y mariadb-server mariadb-client && \
-    # Create the directory for MariaDB runtime files
-    mkdir -p /run/mysqld && \
-    # Set proper permissions
-    chown -R mysql:mysql /run/mysqld && \
-    chmod 777 /run/mysqld && \
-    echo 'bind-address = 0.0.0.0' >> /etc/mysql/mariadb.conf.d/50-server.cnf
+    apt-get install -y mariadb-server mariadb-client
 
-# Copy the SQL script to set the root password
-COPY ./conf/init.sql /docker-entrypoint-initdb.d/
+COPY ./conf/init-mysql.sh /
+RUN chmod +x ./init-mysql.sh
 
-
-EXPOSE 3306
-
-CMD ["mysqld"]
+CMD ["sh", "./init-mysql.sh"]

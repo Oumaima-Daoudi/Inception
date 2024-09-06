@@ -2,8 +2,14 @@ FROM debian:bullseye
 
 # Install Nginx
 RUN apt-get update && \
-    apt-get install -y nginx
+    apt-get install -y nginx 
 
-EXPOSE 80
+RUN mkdir -p /etc/nginx/ssl
+
+COPY ./conf/ssl/nginx.crt /etc/nginx/ssl/nginx.crt
+
+COPY ./conf/ssl/nginx.key /etc/nginx/ssl/nginx.key
+
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
