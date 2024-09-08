@@ -1,6 +1,4 @@
 service mariadb start
-
-
 sleep 1
 
     mariadb -e "CREATE DATABASE IF NOT EXISTS oumi;"
