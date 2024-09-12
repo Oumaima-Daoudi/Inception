@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 
 RUN apt update && apt upgrade -y && \
-    apt install -y php-mysql php-fpm wget curl && \
+    apt install -y php-mysql php-fpm php-redis wget curl && \
     # Create necessary directories
     mkdir -p /run/php
 
