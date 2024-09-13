@@ -2,9 +2,9 @@ FROM debian:bullseye
 
 
 RUN apt update && apt upgrade -y && \
-    apt install -y php-mysql php-fpm php-redis wget curl && \
+    apt install -y apache2 libapache2-mod-php php-mysql php-fpm php-redis wget curl && \
     # Create necessary directories
-    mkdir -p /run/php
+    mkdir -p /run/php 
 
 # Install WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \

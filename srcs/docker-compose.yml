@@ -1,25 +1,41 @@
 
 version: '3.1'
 services:
-  # adminer:
-  #   image: adminer
-  #   ports:   
-  #     - "8081:8080"
-  #   depends_on:
-  #     - mariadb
-  #   networks:
-  #     - docker-network
+  adminer:
+    build:
+      context: ./requirements/bonus/adminer
+      dockerfile: Dockerfile
+    container_name: adminer
+    ports:   
+      - "8081:80"
+    depends_on:
+      - mariadb
+    networks:
+      - docker-network
+
+  ftp-server:
+    build:
+      context: ./requirements/bonus/ftp-server
+      dockerfile: Dockerfile
+    restart: always
+    container_name: ftp-server
+    ports:
+      - "20:20"
+      - "21:21"
+      - "10000-10100:10000-10100"
+    # volumes:
+    #   - wordpress_files:/var/www/html
+    networks:
+      - docker-network
 
   redis:
     build:
-      context: ./requirements/bonus
+      context: ./requirements/bonus/redis
       dockerfile: Dockerfile
     restart: always
     container_name: redis
     ports:
       - "6379:6379"
-    # volumes:
-    #   - :/data
     networks:
       - docker-network
 
@@ -71,11 +87,11 @@ services:
       - redis
     networks:
       - docker-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5
 
 
 volumes:
