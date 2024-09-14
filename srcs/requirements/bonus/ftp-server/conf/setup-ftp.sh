@@ -6,7 +6,6 @@ if ! id "ftpuser" &>/dev/null; then
     echo "ftpuser:pass" | chpasswd
 fi
 
-
 # Set proper permissions
 chown -R ftpuser:ftpuser /var/www/html
 

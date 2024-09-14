@@ -1,6 +1,15 @@
 
 version: '3.1'
 services:
+  website:
+    build:
+      context: ./requirements/bonus/website
+      dockerfile: Dockerfile
+    container_name: website
+    ports:
+      - "4200:4200"
+    networks:
+      - docker-network
   adminer:
     build:
       context: ./requirements/bonus/adminer
