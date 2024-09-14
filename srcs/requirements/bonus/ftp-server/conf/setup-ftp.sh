@@ -2,7 +2,7 @@
 
 # Add FTP user and set home directory
 if ! id "ftpuser" &>/dev/null; then
-    useradd -m -d /var/www/html/ftpuser -s /bin/bash ftpuser && \
+    useradd -m -d /ftpuser -s /bin/bash ftpuser && \
     echo "ftpuser:pass" | chpasswd
 fi
 

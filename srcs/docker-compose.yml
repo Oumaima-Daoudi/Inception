@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: adminer
     ports:   
-      - "8081:80"
+      - "8081:8080"
     depends_on:
       - mariadb
     networks:
@@ -23,8 +23,8 @@ services:
       - "20:20"
       - "21:21"
       - "10000-10100:10000-10100"
-    # volumes:
-    #   - wordpress_files:/var/www/html
+    volumes:
+      - wordpress_files:/ftpuser/wordpress_files
     networks:
       - docker-network
 
@@ -85,13 +85,10 @@ services:
     depends_on:
       - mariadb
       - redis
+    volumes:
+      - wordpress_files:/wordpress
     networks:
       - docker-network
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 5
 
 
 volumes:
