@@ -1,0 +1,23 @@
+
+
+# filebeat.config.modules.path: ${path.config}/modules.d/*.yml
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/lib/docker/containers/*/*.log
+  # json.keys_under_root: true
+  # json.add_error_key: true
+  # fields:
+  #   service: "docker-container"
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  username: "elastic"
+  password: "ouma"
+  indices:
+    - index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+# setup.template:
+#   name: "docker-logs"
+#   pattern: "docker-logs-*"
+#   enabled: true
