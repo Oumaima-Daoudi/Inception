@@ -1,22 +1,25 @@
 #!/bin/bash
 
 # Set up WordPress
-if [ ! -f /wordpress/wp-config.php ]; then
+if [ ! -f /var/www/html/wp-config.php ]; then
     echo "No wp-config.php found, exiting"
     exit 1
 fi
 
-sleep 3
+sleep 5
 
 # Check if WordPress is already installed
-if ! wp core is-installed --path=/wordpress --allow-root; then
+if ! wp core is-installed --path=/var/www/html --allow-root; then
     echo "Installing WordPress..."
 
     # Install WordPress
-    wp core install --path=/wordpress --url="https://localhost" --title="docker-project" --admin_user="${WORDPRESS_DB_USER}" --admin_password="${WORDPRESS_DB_PASSWORD}" --admin_email="oumaimadaoudi13@gmail.com" --skip-email --allow-root
+    wp core install --path=/var/www/html --url="https://localhost" --title="docker-project" --admin_user="${WORDPRESS_DB_USER}" --admin_password="${WORDPRESS_DB_PASSWORD}" --admin_email="oumaimadaoudi13@gmail.com" --skip-email --allow-root
 
     # Create additional users
-    wp user create ziad daoudioumaima@gmail.com --role=subscriber --user_pass="${USER_PASS}" --path=/wordpress --allow-root
+    wp user create ziad daoudioumaima@gmail.com --role=editor --user_pass="${USER_PASS}" --path=/var/www/html --allow-root
+
+    wp theme install astra --path=/var/www/html --allow-root
+    wp theme activate astra --path=/var/www/html --allow-root
 
 
     echo "WordPress installed successfully."
@@ -24,11 +27,14 @@ else
     echo "WordPress is already installed."
 fi
 
+# Deactivate all plugins
+wp plugin deactivate --all --path=/var/www/html --allow-root
+
 # Install and activate Redis Object Cache plugin
-wp plugin install redis-cache --activate --path=/wordpress --allow-root
+wp plugin install redis-cache --activate --path=/var/www/html --allow-root
 
 # Enable Redis cache
-wp redis enable --path=/wordpress --allow-root
+wp redis enable --path=/var/www/html --allow-root
 
 # Make sure PHP-FPM is started
 php-fpm7.4 -F

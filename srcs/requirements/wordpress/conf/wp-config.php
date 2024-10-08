@@ -57,6 +57,9 @@ define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
 define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
 define( 'NONCE_SALT',       'put your unique phrase here' );
 
+define('WP_SITEURL', 'https://localhost');  // Default fallback
+define('WP_HOME', 'https://localhost');     // Default fallback
+
 define('WP_REDIS_HOST', 'redis');
 define('WP_REDIS_PORT', 6379);     
 
@@ -82,7 +85,10 @@ $table_prefix = 'wp_';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', true );
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
+
 
 /* Add any custom values between this line and the "stop editing" line. */
 
