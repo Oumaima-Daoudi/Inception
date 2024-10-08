@@ -13,10 +13,10 @@ if ! wp core is-installed --path=/var/www/html --allow-root; then
     echo "Installing WordPress..."
 
     # Install WordPress
-    wp core install --path=/var/www/html --url="https://localhost" --title="docker-project" --admin_user="${WORDPRESS_DB_USER}" --admin_password="${WORDPRESS_DB_PASSWORD}" --admin_email="oumaimadaoudi13@gmail.com" --skip-email --allow-root
+    wp core install --path=/var/www/html --url="${WP_SITEURL}" --title="${TITLE}" --admin_user="${WORDPRESS_DB_USER}" --admin_password="${WORDPRESS_DB_PASSWORD}" --admin_email="${ADMIN_EMAIL}" --skip-email --allow-root
 
     # Create additional users
-    wp user create ziad daoudioumaima@gmail.com --role=editor --user_pass="${USER_PASS}" --path=/var/www/html --allow-root
+    wp user create $(echo ${EDITOR_USER_NAME}) $(echo ${EDITOR_USER_EMAIL}) --role=editor --user_pass="${USER_PASS}" --path=/var/www/html --allow-root
 
     wp theme install astra --path=/var/www/html --allow-root
     wp theme activate astra --path=/var/www/html --allow-root

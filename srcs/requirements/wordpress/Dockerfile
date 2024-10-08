@@ -26,7 +26,7 @@ RUN sed -i 's|^listen = .*$|listen = 9000|' /etc/php/7.4/fpm/pool.d/www.conf
 COPY ./conf/wp-config.php /var/www/html/wp-config.php
 
 # Add script for setting up WordPress automatically
-COPY ./conf/install-wordpress.sh /usr/local/bin/install-wordpress.sh
+COPY ./scripts/install-wordpress.sh /usr/local/bin/install-wordpress.sh
 RUN chmod +x /usr/local/bin/install-wordpress.sh
 
 # Run the setup script on container startup

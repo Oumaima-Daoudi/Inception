@@ -17,19 +17,18 @@
  *
  * @package WordPress
  */
-
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress' );
+define( 'DB_NAME', getenv('MARIADB_DATABASE'));
 
 /** Database username */
-define( 'DB_USER', 'oumaima' );
+define( 'DB_USER', getenv('MARIADB_USER'));
 
 /** Database password */
-define( 'DB_PASSWORD', 'ensa-1234' );
+define( 'DB_PASSWORD', getenv('MARIADB_PASSWORD'));
 
 /** Database hostname */
-define( 'DB_HOST', 'mariadb' );
+define( 'DB_HOST', getenv('MARIADB_DB_HOST') );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -57,11 +56,11 @@ define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
 define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
 define( 'NONCE_SALT',       'put your unique phrase here' );
 
-define('WP_SITEURL', 'https://localhost');  // Default fallback
-define('WP_HOME', 'https://localhost');     // Default fallback
+define('WP_SITEURL', getenv('WP_SITEURL'));
+define('WP_HOME', getenv('WP_HOME'));     
 
-define('WP_REDIS_HOST', 'redis');
-define('WP_REDIS_PORT', 6379);     
+define('WP_REDIS_HOST', getenv('WP_REDIS_HOST'));
+define('WP_REDIS_PORT', getenv('WP_REDIS_PORT'));     
 
 /**#@-*/
 

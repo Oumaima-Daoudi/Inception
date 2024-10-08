@@ -50,12 +50,12 @@ services:
         max-size: "50m"
         max-file: "5"
 
-  ftp-server:
+  ftp:
     build:
-      context: ./requirements/bonus/ftp-server
+      context: ./requirements/bonus/ftp
       dockerfile: Dockerfile
     restart: always
-    container_name: ftp-server
+    container_name: ftp
     ports:
       - "20:20"
       - "21:21"
@@ -112,7 +112,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     depends_on:
-      - wordpress-php
+      - wordpress
     container_name: nginx
     ports:
       - "443:443"
@@ -126,20 +126,30 @@ services:
         max-size: "50m"
         max-file: "5"
 
-  wordpress-php:
+  wordpress:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     restart: always
-    container_name: wordpress-php
+    container_name: wordpress
     ports:
       - "8888:9000"
-    environment:
-      WORDPRESS_DB_HOST: ${MARIADB_DB_HOST}
-      WORDPRESS_DB_NAME: ${MARIADB_DATABASE}
-      WORDPRESS_DB_USER: ${MARIADB_USER}
-      WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
-      USER_PASS: ${USER_PASS}
+    # environment:
+    #   WORDPRESS_DB_HOST: ${MARIADB_DB_HOST}
+    #   WORDPRESS_DB_NAME: ${MARIADB_DATABASE}
+    #   WORDPRESS_DB_USER: ${MARIADB_USER}
+    #   WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
+    #   USER_PASS: ${USER_PASS}
+    #   WP_SITEURL: ${WP_SITEURL}
+    #   WP_HOME: ${WP_HOME}
+    #   WP_REDIS_HOST: ${WP_REDIS_HOST}
+    #   WP_REDIS_PORT: ${WP_REDIS_PORT}
+    #   ADMIN_EMAIL: ${ADMIN_EMAIL}
+    #   TITLE: ${TITLE}
+    #   EDITOR_USER_NAME: ${EDITOR_USER_NAME}
+    #   EDITOR_USER_EMAIL: ${EDITOR_USER_EMAIL}
+    env_file:
+      - ./.env
     depends_on:
       - mariadb
       - redis
